@@ -3,6 +3,7 @@ const db = require('../../data/dbConfig');
 module.exports = {
   getUsers,
   getUserById,
+  getUserBy,
   addUser,
 }
 
@@ -20,5 +21,11 @@ async function addUser(user) {
 function getUserById(id) {
   return db('users')
     .where({ id })
+    .first();
+}
+
+function getUserBy(column) {
+  return db('users')
+    .where(column)
     .first();
 }
