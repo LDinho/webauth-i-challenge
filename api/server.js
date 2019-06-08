@@ -2,7 +2,7 @@ const express = require('express');
 
 const server = express();
 
-const middleware = require('./config/middleware');
+const middlewareConfig = require('./config/middleware');
 
 // import routers
 const {
@@ -10,7 +10,7 @@ const {
   usersRouter,
 } = require('./routes');
 
-middleware(server); // third-party middleware
+middlewareConfig(server); // third-party middleware
 
 server.use(express.json());
 

@@ -2,10 +2,12 @@ const express = require('express');
 
 const router = express.Router();
 
+const { authorize } = require('../auth/restricted-middleware');
+
 const {
   getUsers,
 
-} = require('../../helpers/usersDbhelper');
+} = require('../../helpers');
 
 /*
 @GET: users
@@ -13,7 +15,7 @@ const {
 @ROUTE: "/api/users"
 */
 
-router.get('/', async (req, res) => {
+router.get('/', authorize, async (req, res) => {
   try {
     const users = await getUsers();
 
@@ -26,7 +28,10 @@ router.get('/', async (req, res) => {
     }
   }
   catch (err) {
-    res.status(500).json({error: `Unable to retrieve users`})
+    res.status(500).json({
+      err: err.message,
+      error: `Unable to retrieve users`
+    })
   }
 
 });
