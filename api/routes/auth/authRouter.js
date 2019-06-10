@@ -78,6 +78,8 @@ router.post('/login', async (req, res) => {
         });
     } else {
 
+      req.session.user = user;
+
       return res.status(200)
         .json({
           message: `Welcome ${user.username}!`

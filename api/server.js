@@ -19,7 +19,8 @@ server.use("/api/auth", authRouter);
 server.use("/api/users", usersRouter);
 
 server.get('/', (req, res) => {
-  res.send(`<p>Authentication Project</p>`)
+  // res.cookie('hereCookie', 'chocolate'); // manually setting cookie
+  res.send(`<p>Authentication Project</p>`);
 });
 
 module.exports = server;
