@@ -4,6 +4,11 @@ const router = express.Router();
 const bcrypt = require('bcrypt');
 
 const {
+  authorize
+
+} = require('../auth/restricted-middleware');
+
+const {
   addUser,
   getUserBy,
 
@@ -92,6 +97,23 @@ router.post('/login', async (req, res) => {
         err: err.message,
         error: `Server error`
       })
+  }
+})
+
+router.get('/logout', authorize, (req, res) => {
+
+  if (req.session) {
+    req.session.destroy((err) =>{
+
+      if (err) {
+        console.log(err);
+        res.status(500).json({message: `there was an error`});
+      }
+
+      res.end();
+    });
+  } else {
+    res.end();
   }
 })
 

@@ -5,7 +5,7 @@ const cors = require('cors');
 
 const db = require('../../data/dbConfig');
 const session = require('express-session');
-const knexSessionStore = require('connect-session-knex')(session);
+const KnexSessionStore = require('connect-session-knex')(session);
 
 const sessionConfig = {
   secret: process.env.SESSION_SECRET,
@@ -19,13 +19,13 @@ const sessionConfig = {
   // vv set to false to keep from saving large data, good for login functionality
   // the cookie will not be set on a response
   saveUninitialized: false,
-  store: new knexSessionStore({
+  store: new KnexSessionStore({
     // creates memory cache
     tablename: 'sessions', // session table name
-    sidfiledname: 'sid', // session field name
+    sidfieldname: 'sid', // session field name
     knex: db, // database you want knex to use
     createTable: true, // have library create the table if there isn't one
-    clearIntervale: 1000 * 60 * 60 // clear every hour
+    clearInterval: 1000 * 60 * 60 // clear every hour
   })
 }
 
